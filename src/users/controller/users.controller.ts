@@ -7,18 +7,27 @@ import {
   Put,
   Delete,
   ParseIntPipe,
+  Inject,
 } from '@nestjs/common';
-
-import { User } from '../entities/user.entity';
+import { ConfigService } from '@nestjs/config';
 import { UserService } from '../services/user.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
+@ApiTags('users')
 export class UsersController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private configService: ConfigService,
+    @Inject('API_KEY') private apiKey: string,
+  ) {}
 
   @Get()
   getUsers() {
+    console.log(this.apiKey);
+    console.log(this.configService.get('TOKEN_TIME'));
+
     return this.userService.findAll();
   }
 
@@ -37,7 +46,7 @@ export class UsersController {
     @Param('idUser', ParseIntPipe) idUser: number,
     @Body() user: UpdateUserDto,
   ) {
-    return this.userService.update(idUser,user);
+    return this.userService.update(idUser, user);
   }
 
   @Delete('/:idUser')

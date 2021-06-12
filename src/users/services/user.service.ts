@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
+import { ProfileService } from '../../profile/services/profile.service';
 
 @Injectable()
 export class UserService {
+  constructor(private profileService: ProfileService) {}
   private users: User[] = [
     {
       id: 1,
@@ -20,7 +22,11 @@ export class UserService {
 
   findOne(idUser: number): User {
     const userFound = this.users.find((user) => user.id === idUser);
-    return userFound;
+    const user: User = {
+      ...userFound,
+      profile: this.profileService.findOne(1),
+    };
+    return user;
   }
 
   create(user: CreateUserDto): User {
