@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProfileModule } from './profile/profile.module';
-import { GlobalModule } from './global/global.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { GlobalModule } from './global/global.module';
     }),
     UsersModule,
     ProfileModule,
-    GlobalModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

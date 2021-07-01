@@ -5,15 +5,22 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   readonly firstName: string;
+
   @IsNotEmpty()
   @IsString()
   readonly lastName: string;
+
   @IsNotEmpty()
   @IsNumber()
   readonly dni: number;
+
   @IsNotEmpty()
   @IsNumber()
   readonly age: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly profileId: number;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
